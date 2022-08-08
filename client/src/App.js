@@ -39,7 +39,7 @@ const App = () => {
         <div>
           <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
         </div>
-        <button type="button">Register</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
