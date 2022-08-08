@@ -22,7 +22,7 @@ const App = () => {
       })
     })
 
-    const date = response.json()
+    const data = response.json()
     console.log(data);
   }
 
