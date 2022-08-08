@@ -1,23 +1,46 @@
-import logo from './logo.svg';
+import {useState} from 'react'
 import './App.css';
 
-function App() {
+
+const App = () => {
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const registerUser = async (e) => {
+    e.preventDefault()
+    const response = await fetch('http://localhost:1337/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password
+      })
+    })
+
+    const date = response.json()
+    console.log(data);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Register</h1>
+      <form onSubmit={registerUser}>
+        <div>
+          <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Name" />
+        </div>
+        <div>
+          <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" /> 
+        </div>
+        <div>
+          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
+        </div>
+        <button type="button">Register</button>
+      </form>
     </div>
   );
 }
