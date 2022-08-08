@@ -10,7 +10,6 @@ app.use(express.json())
 mongoose.connect('mongodb://localhost:27017/auth-mern')
 
 app.post('/api/register', async(req,res) => {
-    console.log(req.body);
     try {
         await User.create({
             name: req.body.name,
@@ -21,7 +20,18 @@ app.post('/api/register', async(req,res) => {
     } catch (err) {
         res.json({status: 'error', error: "Duplicate email"})
     }
-    res.json({status: 'ok'})
+})
+
+app.post('/api/login', async(req,res) => {
+    const user = await User.findOne({
+        email: req.body.email,
+        password: req.body.password
+    })
+    if(user) {
+        res.json({status: 'ok', user: true})
+    } else {
+        res.json({status: 'error', user: false})
+    }
 })
 
 app.listen(1337, () => console.log('server started on 1337'))
